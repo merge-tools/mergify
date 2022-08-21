@@ -1,8 +1,13 @@
-pull_request_rules:
-  - name: automatic merge for main when CI passes
+queue_rules:
+  - name: default
     conditions:
       - check-success=build
+
+pull_request_rules:
+  - name: merge using the merge queue
+    conditions:
       - base=main
+      - check-success=build
     actions:
-      merge:
-        method: merge
+      queue:
+        name: default
